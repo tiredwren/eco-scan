@@ -61,14 +61,22 @@ class _BarcodeScannerState extends State<BarcodeScanner> {
   }
 
   Future<String> getItemName(String barcode) async {
-    String csvData = await loadAsset('assets/barcodes.csv');
-    List<List<dynamic>> csvTable = CsvToListConverter().convert(csvData);
+    String barcodeData = await loadAsset('assets/barcodes.csv');
+    String itemData = await loadAsset('assets/barcodes.csv');
+    List<List<dynamic>> barcodesTable = CsvToListConverter().convert(barcodeData);
+    List<List<dynamic>> itemsTable = CsvToListConverter().convert(itemData);
 
-    for (List<dynamic> row in csvTable) {
+    for (List<dynamic> row in barcodesTable) {
       if (row.contains(barcode)) {
-        return row[0].toString();
+        return row[5].toString();
       }
     }
+    for (List<dynamic> row in itemsTable) {
+      if (row.contains(barcode)) {
+        return row[1].toString();
+      }
+    }
+
 
     return "Item not found";
   }
