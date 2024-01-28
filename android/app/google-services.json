@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "940297251688",
+    "project_id": "eco-scan-fd525",
+    "storage_bucket": "eco-scan-fd525.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940297251688:android:267636e6795531c75684dd",
+        "android_client_info": {
+          "package_name": "com.example.barcode_scanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7BMzua12XE6gqiyIfkTN4XpYHDH_3dng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
