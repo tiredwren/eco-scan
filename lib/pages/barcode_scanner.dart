@@ -1,9 +1,14 @@
+import 'package:barcode_scanner/components/bottom_nav_bar.dart';
+import 'package:barcode_scanner/pages/saved_page.dart';
+import 'package:barcode_scanner/pages/shop_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:csv/csv.dart';
 import 'dart:async';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../const.dart';
 
 class BarcodeScanner extends StatefulWidget {
   BarcodeScanner({super.key});
@@ -22,6 +27,19 @@ void signUserOut() {
 class _BarcodeScannerState extends State<BarcodeScanner> {
   String itemName = "Scan a barcode";
   bool searching = false;
+  // for nav bar
+  int _selectedIndex = 0;
+  void navigateBottomBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  // pages
+  final List<Widget> _pages = [
+    ShopPage(),
+    SavedPage()
+  ];
 
   Future<void> _scanBarcode() async {
     String barcode = await FlutterBarcodeScanner.scanBarcode(
@@ -85,49 +103,59 @@ class _BarcodeScannerState extends State<BarcodeScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Barcode Scanner"),
-        actions: [
-          IconButton(
-            onPressed: signUserOut,
-            icon: Icon(Icons.logout),
-          ),
-        ],
+      backgroundColor: backgroundColor,
+      bottomNavigationBar: MyBottomNavBar(
+        onTabChange: (index) => navigateBottomBar(index),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Item Name:",
-              style: TextStyle(fontSize: 20.0),
-            ),
-            SizedBox(height: 10.0),
-
-            searching
-                ? Container(
-              width: 200, // Set the desired width here
-              height: 8,   // Set the desired height here
-              child: LinearProgressIndicator(
-                value: null,
-                valueColor:
-                AlwaysStoppedAnimation<Color>(Colors.blue),
-                backgroundColor: Colors.grey,
-              ),
-            )
-                : Text(
-              itemName,
-              style: TextStyle(
-                  fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _scanBarcode,
-        tooltip: 'Scan',
-        child: Icon(Icons.camera_alt),
-      ),
+      body: _pages[_selectedIndex],
     );
+
+
+
+
+    //   appBar: AppBar(
+    //     title: Text("Barcode Scanner"),
+    //     actions: [
+    //       IconButton(
+    //         onPressed: signUserOut,
+    //         icon: Icon(Icons.logout),
+    //       ),
+    //     ],
+    //   ),
+    //   body: Center(
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: <Widget>[
+    //         Text(
+    //           "Item Name:",
+    //           style: TextStyle(fontSize: 20.0),
+    //         ),
+    //         SizedBox(height: 10.0),
+    //
+    //         searching
+    //             ? Container(
+    //           width: 200, // Set the desired width here
+    //           height: 8,   // Set the desired height here
+    //           child: LinearProgressIndicator(
+    //             value: null,
+    //             valueColor:
+    //             AlwaysStoppedAnimation<Color>(Colors.blue),
+    //             backgroundColor: Colors.grey,
+    //           ),
+    //         )
+    //             : Text(
+    //           itemName,
+    //           style: TextStyle(
+    //               fontSize: 20.0, fontWeight: FontWeight.bold),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    //   floatingActionButton: FloatingActionButton(
+    //     onPressed: _scanBarcode,
+    //     tooltip: 'Scan',
+    //     child: Icon(Icons.camera_alt),
+    //   ),
+    // );
   }
 }
