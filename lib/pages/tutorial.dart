@@ -1,4 +1,4 @@
-import 'package:barcode_scanner/pages/barcode_scanner.dart';
+import 'package:barcode_scanner/pages/home.dart';
 import 'package:barcode_scanner/tutorial/page_one.dart';
 import 'package:barcode_scanner/tutorial/page_three.dart';
 import 'package:barcode_scanner/tutorial/page_two.dart';
@@ -50,7 +50,7 @@ class _TutorialState extends State<Tutorial> {
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => BarcodeScanner())
+                            MaterialPageRoute(builder: (context) => HomePage())
                         );
                   },
                       child: Text('skip')),
@@ -61,7 +61,7 @@ class _TutorialState extends State<Tutorial> {
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => BarcodeScanner())
+                            MaterialPageRoute(builder: (context) => HomePage())
                         );
                       },
                       child: Text('done'))

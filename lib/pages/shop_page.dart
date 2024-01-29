@@ -8,7 +8,6 @@ import '../models/items.dart';
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
 
-
   @override
   State<ShopPage> createState() => _ShopPageState();
 }

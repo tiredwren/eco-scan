@@ -10,13 +10,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../const.dart';
 
-class BarcodeScanner extends StatefulWidget {
-  BarcodeScanner({super.key});
-
-  final user = FirebaseAuth.instance.currentUser!;
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
 
   @override
-  _BarcodeScannerState createState() => _BarcodeScannerState();
+  _HomePageState createState() => _HomePageState();
 }
 
 //shift to home page/shop once home page/shop is made:
@@ -24,7 +22,9 @@ void signUserOut() {
   FirebaseAuth.instance.signOut();
 }
 
-class _BarcodeScannerState extends State<BarcodeScanner> {
+class _HomePageState extends State<HomePage> {
+  final user = FirebaseAuth.instance.currentUser!;
+
   String itemName = "Scan a barcode";
   bool searching = false;
   // for nav bar
@@ -103,6 +103,14 @@ class _BarcodeScannerState extends State<BarcodeScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("EcoScan"),
+        backgroundColor: Colors.grey[900],
+        actions: [
+          IconButton(onPressed: signUserOut,
+              icon: Icon(Icons.logout_rounded))
+        ],
+      ),
       backgroundColor: backgroundColor,
       bottomNavigationBar: MyBottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),
