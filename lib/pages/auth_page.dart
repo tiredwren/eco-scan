@@ -1,4 +1,4 @@
-import 'package:barcode_scanner/pages/barcode_scanner.dart';
+import 'package:barcode_scanner/pages/home.dart';
 import 'package:barcode_scanner/pages/login_or_register.dart';
 import 'package:barcode_scanner/pages/login_page.dart';
 import 'package:barcode_scanner/pages/shop_page.dart';
@@ -15,7 +15,7 @@ class AuthPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return BarcodeScanner();
+            return HomePage();
             }
           else {
             return LoginOrRegister();

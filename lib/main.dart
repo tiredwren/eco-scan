@@ -1,6 +1,6 @@
 import 'package:barcode_scanner/models/shop.dart';
 import 'package:barcode_scanner/pages/auth_page.dart';
-import 'package:barcode_scanner/pages/barcode_scanner.dart';
+import 'package:barcode_scanner/pages/home.dart';
 import 'package:barcode_scanner/pages/login_page.dart';
 import 'package:barcode_scanner/pages/shop_page.dart';
 import 'package:flutter/material.dart';
