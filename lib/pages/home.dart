@@ -104,11 +104,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("EcoScan"),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Text("EcoScan"),
+        ),
         backgroundColor: Colors.grey[900],
         actions: [
-          IconButton(onPressed: signUserOut,
-              icon: Icon(Icons.logout_rounded))
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: IconButton(
+              onPressed: signUserOut,
+              icon: Icon(Icons.logout_rounded),
+            ),
+          ),
         ],
       ),
       backgroundColor: backgroundColor,
@@ -117,6 +125,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _pages[_selectedIndex],
     );
+
 
 
 
