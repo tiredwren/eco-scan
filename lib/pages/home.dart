@@ -1,4 +1,5 @@
 import 'package:barcode_scanner/components/bottom_nav_bar.dart';
+import 'package:barcode_scanner/pages/auth_page.dart';
 import 'package:barcode_scanner/pages/saved_page.dart';
 import 'package:barcode_scanner/pages/shop_page.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,12 @@ class HomePage extends StatefulWidget {
 }
 
 //shift to home page/shop once home page/shop is made:
-void signUserOut() {
-  FirebaseAuth.instance.signOut();
+void signUserOut(BuildContext context) async {
+  await FirebaseAuth.instance.signOut();
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => AuthPage()),
+  );
 }
 
 class _HomePageState extends State<HomePage> {
@@ -27,8 +32,10 @@ class _HomePageState extends State<HomePage> {
 
   String itemName = "Scan a barcode";
   bool searching = false;
+
   // for nav bar
   int _selectedIndex = 0;
+
   void navigateBottomBar(int index) {
     setState(() {
       _selectedIndex = index;
@@ -36,10 +43,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // pages
-  final List<Widget> _pages = [
-    ShopPage(),
-    SavedPage()
-  ];
+  final List<Widget> _pages = [ShopPage(), SavedPage()];
 
   Future<void> _scanBarcode() async {
     String barcode = await FlutterBarcodeScanner.scanBarcode(
@@ -76,13 +80,12 @@ class _HomePageState extends State<HomePage> {
         });
       }
     }
-
-
   }
 
   Future<String> getItemName(String barcode) async {
     String barcodeData = await loadAsset('assets/barcodes.csv');
-    List<List<dynamic>> barcodesTable = CsvToListConverter().convert(barcodeData);
+    List<List<dynamic>> barcodesTable =
+    CsvToListConverter().convert(barcodeData);
     print(barcodesTable);
     for (List<dynamic> row in barcodesTable) {
       print("Row: $row");
@@ -94,7 +97,6 @@ class _HomePageState extends State<HomePage> {
 
     return "item not found";
   }
-
 
   Future<String> loadAsset(String path) async {
     return await rootBundle.loadString(path);
@@ -113,66 +115,46 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: IconButton(
-              onPressed: signUserOut,
+              onPressed: () => signUserOut(context),
               icon: Icon(Icons.logout_rounded),
             ),
           ),
         ],
       ),
+      body: Column(
+        children: [
+          Expanded( // Use Expanded to allow the bottom navigation to take remaining space
+            child: _pages[_selectedIndex],
+          ),
+          searching
+              ? Container(
+            width: 200,
+            height: 8,
+            child: LinearProgressIndicator(
+              value: null,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              backgroundColor: Colors.grey,
+            ),
+          )
+              : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              itemName,
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _scanBarcode,
+        tooltip: 'Scan',
+        child: Icon(Icons.camera_alt),
+      ),
       backgroundColor: backgroundColor,
       bottomNavigationBar: MyBottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),
       ),
-      body: _pages[_selectedIndex],
     );
-
-
-
-
-
-    //   appBar: AppBar(
-    //     title: Text("Barcode Scanner"),
-    //     actions: [
-    //       IconButton(
-    //         onPressed: signUserOut,
-    //         icon: Icon(Icons.logout),
-    //       ),
-    //     ],
-    //   ),
-    //   body: Center(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: <Widget>[
-    //         Text(
-    //           "Item Name:",
-    //           style: TextStyle(fontSize: 20.0),
-    //         ),
-    //         SizedBox(height: 10.0),
-    //
-    //         searching
-    //             ? Container(
-    //           width: 200, // Set the desired width here
-    //           height: 8,   // Set the desired height here
-    //           child: LinearProgressIndicator(
-    //             value: null,
-    //             valueColor:
-    //             AlwaysStoppedAnimation<Color>(Colors.blue),
-    //             backgroundColor: Colors.grey,
-    //           ),
-    //         )
-    //             : Text(
-    //           itemName,
-    //           style: TextStyle(
-    //               fontSize: 20.0, fontWeight: FontWeight.bold),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    //   floatingActionButton: FloatingActionButton(
-    //     onPressed: _scanBarcode,
-    //     tooltip: 'Scan',
-    //     child: Icon(Icons.camera_alt),
-    //   ),
-    // );
   }
 }
