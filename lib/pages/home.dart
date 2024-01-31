@@ -12,13 +12,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../const.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-//shift to home page/shop once home page/shop is made:
 void signUserOut(BuildContext context) async {
   await FirebaseAuth.instance.signOut();
   Navigator.pushReplacement(
@@ -29,11 +28,8 @@ void signUserOut(BuildContext context) async {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
-
   String itemName = "Scan a barcode";
   bool searching = false;
-
-  // for nav bar
   int _selectedIndex = 0;
 
   void navigateBottomBar(int index) {
@@ -42,7 +38,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // pages
   final List<Widget> _pages = [ShopPage(), SavedPage()];
 
   Future<void> _scanBarcode() async {
@@ -84,12 +79,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<String> getItemName(String barcode) async {
     String barcodeData = await loadAsset('assets/barcodes.csv');
-    List<List<dynamic>> barcodesTable =
-    CsvToListConverter().convert(barcodeData);
-    print(barcodesTable);
+    List<List<dynamic>> barcodesTable = CsvToListConverter().convert(barcodeData);
+
     for (List<dynamic> row in barcodesTable) {
-      print("Row: $row");
-      print("Comparing ${row[0]} with $barcode");
       if (row[0].toString().trim() == barcode.trim()) {
         return row[5].toString();
       }
@@ -123,7 +115,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          Expanded( // Use Expanded to allow the bottom navigation to take remaining space
+          Expanded(
             child: _pages[_selectedIndex],
           ),
           searching
@@ -140,16 +132,35 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               itemName,
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-
-        ],
+        Center(
+        child: OutlinedButton(
+          onPressed: _scanBarcode,
+          style: OutlinedButton.styleFrom(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(10.0),
+            side: BorderSide(color: Colors.pink[100]!),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+          child: Container(
+            alignment: Alignment(0,0.75),
+            padding: EdgeInsets.all(16.0),
+            child: Icon(
+              Icons.camera_alt_outlined,
+              color: Colors.pink[100],
+            ),
+          ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _scanBarcode,
-        tooltip: 'Scan',
-        child: Icon(Icons.camera_alt),
+    ],
       ),
       backgroundColor: backgroundColor,
       bottomNavigationBar: MyBottomNavBar(
