@@ -1,0 +1,12 @@
+{
+  "configs": [
+    {
+      "tessdata": {
+        "languages": ["eng"]
+      },
+      "options": {
+        "debug": true
+      }
+    }
+  ]
+}

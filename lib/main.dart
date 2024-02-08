@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(create: (context) => SustainableShop(),
       builder: (context, child) => const MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: AuthPage(),
       ),
     );
