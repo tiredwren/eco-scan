@@ -82,6 +82,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // username textfield
                 MyTextField(
+                  maxLines: 1,
                   controller: usernameController,
                   hintText: 'Username',
                   obscureText: false,
@@ -91,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // password textfield
                 MyTextField(
+                  maxLines: 1,
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,

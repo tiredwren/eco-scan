@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(create: (context) => SustainableShop(),
-      builder: (context, child) => const MaterialApp(
+      builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(primarySwatch: Colors.brown),
         home: AuthPage(),
       ),
     );

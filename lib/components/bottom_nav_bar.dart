@@ -23,7 +23,10 @@ class MyBottomNavBar extends StatelessWidget {
             text: 'Shop',),
           GButton(
           icon: Icons.shopping_bag_outlined,
-          text: 'Saved',)]
+          text: 'Saved',),
+            GButton(
+              icon: Icons.camera_enhance_outlined,
+              text: 'Scan',),]
       ),
     );
   }

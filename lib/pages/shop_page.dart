@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/items.dart';
+import 'add_to_cart_page.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
@@ -100,8 +101,9 @@ class _ShopPageState extends State<ShopPage> {
                     Item eachItem = value.sustainableShop[index];
                     return ItemTile(
                       item: eachItem,
-                      icon: Icon(Icons.add),
-                      onPressed: () => addToSaved(eachItem),
+                      icon: Icon(Icons.arrow_forward),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddToCartPage(item: eachItem, addToSavedCallback: () => addToSaved(eachItem),)))
+                          //() => addToSaved(eachItem),
                     );
                   },
                 ),

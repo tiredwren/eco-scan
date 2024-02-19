@@ -34,7 +34,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   // pages
   final List<Widget> _pages = [
     ShopPage(),
-    SavedPage()
+    SavedPage(),
+    MainScreen()
   ];
 
   @override
@@ -57,23 +58,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         ],
       ),
       backgroundColor: backgroundColor,
-      body: Column(
+      body: Stack(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MainScreen()),
-              );
-            },
-            child: Text('Press Me Above NavBar'),
-          ),
-
           Expanded(
             child: _pages[_selectedIndex],
           ),
         ],
       ),
+
       bottomNavigationBar: MyBottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),
       ),
