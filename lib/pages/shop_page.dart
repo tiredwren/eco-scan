@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/items.dart';
+
 import 'add_to_cart_page.dart';
+
+import './searchBar.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
@@ -78,9 +81,11 @@ class _ShopPageState extends State<ShopPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SustainableShop>(
+      
       builder: (context, value, child) => SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(25.0),
@@ -90,9 +95,6 @@ class _ShopPageState extends State<ShopPage> {
                 "Welcome to EcoScan",
                 style: TextStyle(fontSize: 20),
               ),
-
-              const SizedBox(height: 25),
-
               // list of items
               Expanded(
                 child: ListView.builder(
