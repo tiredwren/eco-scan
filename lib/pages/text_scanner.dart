@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:barcode_scanner/pages/resultScreen.dart';
@@ -88,11 +89,9 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                 },
               ),
             Scaffold(
-              appBar: AppBar(
-                title: const Text('Text Recognition Sample'),
-              ),
               backgroundColor: _isPermissionGranted ? Colors.transparent : null,
-              body: _isPermissionGranted
+              body:
+              _isPermissionGranted
                   ? Column(
                 children: [
                   Expanded(
@@ -193,10 +192,25 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       final inputImage = InputImage.fromFile(file);
       final recognizedText = await textRecognizer.processImage(inputImage);
 
+      List<String> intermediate = recognizedText.text.split(" ");
+      List<String> again = intermediate.toString().split("\n");
+      String final_ingredients_list = again.reduce((value, element) {
+        return value + ", " + element;
+      });
+
+      final List<String> ingredientsList = final_ingredients_list.split(', ');
+      for (var ingredient in ingredientsList) {
+        print(ingredient);
+      }
+
+      for (var ingredient in ingredientsList) {
+        print(ingredient);
+      }
+
       await navigator.push(
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              ResultScreen(text: recognizedText.text),
+              ResultScreen(ingredients: final_ingredients_list.toString()),
         ),
       );
 

@@ -109,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: usernameController,
                   hintText: 'Username',
                   obscureText: false,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
@@ -118,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
@@ -127,6 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: confirmPasswordController,
                   hintText: 'Confirm Password',
                   obscureText: true,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),

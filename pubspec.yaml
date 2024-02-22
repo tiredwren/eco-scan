@@ -68,7 +68,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/barcodes.csv
+     - assets/ingredients_v1.csv
      - assets/items.csv
      - lib/images/
      - assets/tessdata_config.json
