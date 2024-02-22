@@ -1,5 +1,5 @@
 import 'package:barcode_scanner/components/bottom_nav_bar.dart';
-import 'package:barcode_scanner/pages/textScanner.dart';
+import 'package:barcode_scanner/pages/text_scanner.dart';
 import 'package:barcode_scanner/pages/saved_page.dart';
 import 'package:barcode_scanner/pages/shop_page.dart';
 import 'package:flutter/material.dart';

@@ -198,6 +198,15 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         return value + ", " + element;
       });
 
+      final List<String> ingredientsList = final_ingredients_list.split(', ');
+      for (var ingredient in ingredientsList) {
+        print(ingredient);
+      }
+
+      for (var ingredient in ingredientsList) {
+        print(ingredient);
+      }
+
       await navigator.push(
         MaterialPageRoute(
           builder: (BuildContext context) =>
