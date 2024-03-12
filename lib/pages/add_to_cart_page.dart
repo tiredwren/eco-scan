@@ -33,12 +33,12 @@ class _AddToCartPageState extends State<AddToCartPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                widget.item.imagePath,
-                height: 150,
-                width: 150,
-                fit: BoxFit.cover,
-              ),
+              // Image.asset(
+              //   widget.item.imagePath,
+              //   height: 150,
+              //   width: 150,
+              //   fit: BoxFit.cover,
+              // ),
               SizedBox(height: 16.0),
               Text(
                 widget.item.name,
@@ -46,7 +46,7 @@ class _AddToCartPageState extends State<AddToCartPage> {
               ),
               SizedBox(height: 8.0),
               Text(
-                widget.item.price,
+                widget.item.ean,
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 16.0),

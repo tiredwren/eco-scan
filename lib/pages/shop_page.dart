@@ -4,6 +4,8 @@ import '../models/items.dart';
 import '../components/item_tile.dart';
 import './add_to_cart_page.dart';
 import '../models/shop.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/src/services/asset_bundle.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
@@ -40,6 +42,7 @@ class _ShopPageState extends State<ShopPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(25.0),
@@ -67,6 +70,7 @@ class _ShopPageState extends State<ShopPage> {
                   );
                 },
               ),
+              
             ),
           ],
         ),
@@ -99,7 +103,8 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      child: TextField(
+      child: 
+      TextField(
         onChanged: onQueryChanged,
         decoration: InputDecoration(
           labelText: 'Search',
@@ -112,6 +117,7 @@ class _SearchBarState extends State<SearchBar> {
           fillColor: Colors.white, 
         ),
       ),
+      
     );
   }
 }

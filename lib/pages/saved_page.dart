@@ -57,8 +57,8 @@ class _SavedPageState extends State<SavedPage> {
                           return ItemTile(
                             item: Item(
                               name: itemData['itemName'] ?? '',
-                              price: itemData['price'] ?? '',
-                              imagePath: itemData['image'] ?? '',
+                              ean: itemData['ean'] ?? '',
+                              //imagePath: itemData['image'] ?? '',
                             ),
                             onPressed: () => removeFromSaved(snapshot.data!.docs[index]),
                             icon: Icon(Icons.delete),

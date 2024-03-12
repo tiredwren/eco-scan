@@ -28,8 +28,9 @@ class _ItemTileState extends State<ItemTile> {
       padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
       child: ListTile(
         title: Text(widget.item.name),
-        subtitle: Text(widget.item.price),
-        leading: Image.asset(widget.item.imagePath),
+        subtitle: Text(widget.item.ean),
+        // subtitle: Text(widget.item.price),
+        //leading: Image.asset(widget.item.imagePath),
         trailing: IconButton(
             icon: widget.icon,
             onPressed: widget.onPressed,)

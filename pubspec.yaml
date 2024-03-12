@@ -46,6 +46,7 @@ dependencies:
   google_mlkit_text_recognition: ^0.4.0
   permission_handler: ^10.2.0
   camera: ^0.10.5+9
+  ffi: ^2.1.0
 
 
 
