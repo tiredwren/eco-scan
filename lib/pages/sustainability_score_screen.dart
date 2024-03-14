@@ -1,6 +1,8 @@
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:langchain/langchain.dart';
+import 'package:langchain_openai/langchain_openai.dart';
 
 import '../components/my_textfield.dart';
 
@@ -40,14 +42,32 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   // function to handle the button press and pass the entered text
-  void getRating() {
+  getRating() {
     final List<String> ingredientsList = ingredientsController.text.split(',');
 
     for (var ingredient in ingredientsList) {
       String key = ingredient.toLowerCase().trim();
       String rating = findPartialMatch(key);
-      print("Ingredient: $ingredient, Sustainability Rating: $rating");
+      if (rating == null) {
+        return "";
+      }
+      else {
+        return rating;
+      }
+
     }
+  }
+
+  textToNumber(String inputText) {
+    int total = 0;
+    int count = inputText.length;
+    for (int i = 0; i < inputText.length; i++) {
+      total += inputText.codeUnitAt(i);
+    }
+    int real = int.parse(getRating());
+    total += real;
+    double score = ((total / count) % 100);
+    return score.toStringAsFixed(2);
   }
 
   String findPartialMatch(String key) {
@@ -56,7 +76,7 @@ class _ResultScreenState extends State<ResultScreen> {
         return entry.value;
       }
     }
-    return "N/A";
+    return "0";
   }
 
 
@@ -77,9 +97,12 @@ class _ResultScreenState extends State<ResultScreen> {
               maxLines: null,
             ),
             const SizedBox(height: 20),
+            Text(
+              textToNumber(ingredientsController.text).toString()
+            ),
             ElevatedButton(
               onPressed: () {
-                getRating();
+                textToNumber(ingredientsController.text);
               },
               child: const Text('See Sustainability Score'),
             ),

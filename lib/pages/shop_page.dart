@@ -95,6 +95,7 @@ class _ShopPageState extends State<ShopPage> {
                 "Welcome to EcoScan",
                 style: TextStyle(fontSize: 20),
               ),
+              const SizedBox(height: 25),
               // list of items
               Expanded(
                 child: ListView.builder(
