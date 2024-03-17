@@ -1,35 +1,36 @@
-import 'dart:ffi';
 import 'dart:io';
-
-import 'package:barcode_scanner/pages/resultScreen.dart';
+import 'package:barcode_scanner/pages/sustainability_score_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:csv/csv.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+class TextScanner extends StatelessWidget {
+  const TextScanner({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Text Recognition Flutter',
+      title: 'Scan Text',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
       ),
-      home: const MainScreen(),
+      home: const ScanPage(),
     );
   }
 }
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class ScanPage extends StatefulWidget {
+  const ScanPage({Key? key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<ScanPage> createState() => _ScanPageState();
 }
 
-class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
+class _ScanPageState extends State<ScanPage>
+    with WidgetsBindingObserver {
   bool _isPermissionGranted = false;
 
   late final Future<void> _future;
@@ -37,13 +38,18 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   final textRecognizer = TextRecognizer();
 
+  Map<String, String> sustainabilityRatings = {};
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
     _future = _requestCameraPermission();
+
   }
+
+
 
   @override
   void dispose() {
@@ -51,77 +57,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     _stopCamera();
     textRecognizer.close();
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (_cameraController == null || !_cameraController!.value.isInitialized) {
-      return;
-    }
-
-    if (state == AppLifecycleState.inactive) {
-      _stopCamera();
-    } else if (state == AppLifecycleState.resumed &&
-        _cameraController != null &&
-        _cameraController!.value.isInitialized) {
-      _startCamera();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _future,
-      builder: (context, snapshot) {
-        return Stack(
-          children: [
-            if (_isPermissionGranted)
-              FutureBuilder<List<CameraDescription>>(
-                future: availableCameras(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    _initCameraController(snapshot.data!);
-
-                    return Center(child: CameraPreview(_cameraController!));
-                  } else {
-                    return const LinearProgressIndicator();
-                  }
-                },
-              ),
-            Scaffold(
-              backgroundColor: _isPermissionGranted ? Colors.transparent : null,
-              body:
-              _isPermissionGranted
-                  ? Column(
-                children: [
-                  Expanded(
-                    child: Container(),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 30.0),
-                    child: Center(
-                      child: ElevatedButton(
-                        onPressed: _scanImage,
-                        child: const Text('Scan text'),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-                  : Center(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-                  child: const Text(
-                    'Camera permission denied',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Future<void> _requestCameraPermission() async {
@@ -146,7 +81,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       return;
     }
 
-    // Select the first rear camera.
+    // select the first rear camera
     CameraDescription? camera;
     for (var i = 0; i < cameras.length; i++) {
       final CameraDescription current = cameras[i];
@@ -178,7 +113,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     setState(() {});
   }
 
-
   Future<void> _scanImage() async {
     if (_cameraController == null) return;
 
@@ -186,34 +120,23 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
     try {
       final pictureFile = await _cameraController!.takePicture();
-
       final file = File(pictureFile.path);
 
       final inputImage = InputImage.fromFile(file);
       final recognizedText = await textRecognizer.processImage(inputImage);
 
-      List<String> intermediate = recognizedText.text.split(" ");
+      List<String> intermediate = recognizedText.text.split(",");
       List<String> again = intermediate.toString().split("\n");
-      String final_ingredients_list = again.reduce((value, element) {
+      String finalIngredientsList = again.reduce((value, element) {
         return value + ", " + element;
       });
-
-      final List<String> ingredientsList = final_ingredients_list.split(', ');
-      for (var ingredient in ingredientsList) {
-        print(ingredient);
-      }
-
-      for (var ingredient in ingredientsList) {
-        print(ingredient);
-      }
 
       await navigator.push(
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              ResultScreen(ingredients: final_ingredients_list.toString()),
+              ResultScreen(ingredients: finalIngredientsList.replaceAll('[', '').replaceAll(']', '')),
         ),
       );
-
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -221,5 +144,61 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         ),
       );
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _future,
+      builder: (context, snapshot) {
+        return Stack(
+          children: [
+            if (_isPermissionGranted)
+              FutureBuilder<List<CameraDescription>>(
+                future: availableCameras(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    _initCameraController(snapshot.data!);
+
+                    return Center(child: CameraPreview(_cameraController!));
+                  } else {
+                    return const LinearProgressIndicator();
+                  }
+                },
+              ),
+            Scaffold(
+              backgroundColor: _isPermissionGranted ? Colors.transparent : null,
+              body: _isPermissionGranted
+                  ? Column(
+                children: [
+                  Expanded(
+                    child: Container(),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    child: Center(
+                      child: ElevatedButton(
+                        onPressed: _scanImage,
+                        child: const Text('Scan text'),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+                  : Center(
+                child: Container(
+                  padding:
+                  const EdgeInsets.only(left: 24.0, right: 24.0),
+                  child: const Text(
+                    'Camera permission denied',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

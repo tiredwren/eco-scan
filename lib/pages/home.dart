@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final List<Widget> _pages = [
     ShopPage(),
     SavedPage(),
-    MainScreen()
+    ScanPage()
   ];
 
   @override

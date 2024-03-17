@@ -53,7 +53,7 @@ class _TutorialState extends State<Tutorial> {
                             MaterialPageRoute(builder: (context) => HomePage())
                         );
                   },
-                      child: Text('skip')),
+                      child: Text('skip', style: TextStyle(fontSize: 18),)),
                   SmoothPageIndicator(controller: _controller, count: 3),
 
                   onLastPage
@@ -64,14 +64,14 @@ class _TutorialState extends State<Tutorial> {
                             MaterialPageRoute(builder: (context) => HomePage())
                         );
                       },
-                      child: Text('done'))
+                      child: Text('done', style: TextStyle(fontSize: 18),))
 
                       : GestureDetector(
                       onTap: () {
                         _controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeIn
                         );
                       },
-                      child: Text('next'))
+                      child: Text('next', style: TextStyle(fontSize: 18)))
 
                 ],
               )
