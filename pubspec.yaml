@@ -46,8 +46,7 @@ dependencies:
   google_mlkit_text_recognition: ^0.4.0
   permission_handler: ^10.2.0
   camera: ^0.10.5+9
-  langchain: ^0.0.2
-  langchain_openai: ^0.0.2
+  lottie: ^1.2.1
 
 dev_dependencies:
   flutter_test:
