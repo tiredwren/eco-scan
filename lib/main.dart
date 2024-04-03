@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(create: (context) => SustainableShop(),
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.brown),
+        theme: ThemeData(primaryColor: Colors.grey[800], primarySwatch: Colors.lightGreen),
         home: AuthPage(),
       ),
     );

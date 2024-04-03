@@ -16,7 +16,7 @@ class _PageOneState extends State<PageOne> {
           child: Stack(
               children: [
                 Container(
-                    alignment: Alignment(0,-0.3),
+                    alignment: Alignment(0,-0.4),
                     child: Lottie.network('https://lottie.host/fdbb4f69-ea2d-418c-9bfd-e3c94ce71d8d/oS9wp2eQ6f.json')),
                 Container(
                     alignment: Alignment(0,0.3),

@@ -52,15 +52,16 @@ class _ShopPageState extends State<ShopPage> {
           },
         );
       } else {
-        // Convert the Item object to a map
+        // converting the Item object to a map
         Map<String, dynamic> itemData = {
           'itemName': item.name,
           'price': item.price.toString(),
           'image': item.imagePath.toString(),
-          // Add other properties as needed
+          'url': item.url.toString(),
+          'sustainabilityScore': item.sustainabilityScore.toString()
         };
 
-        // Add the item to the user's collection
+        // adding the item to the user's collection
         savedItemsCollection.add(itemData).then((value) {
           showDialog(
             context: context,
@@ -117,19 +118,36 @@ class _ShopPageState extends State<ShopPage> {
                 itemCount: displayedItems.length,
                 itemBuilder: (context, index) {
                   Item eachItem = displayedItems[index];
-                  return ItemTile(
-                    item: eachItem,
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddToCartPage(item: eachItem, addToSavedCallback: () => addToSaved(eachItem)),
-                      ),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddToCartPage(
+                            item: eachItem,
+                            addToSavedCallback: () => addToSaved(eachItem),
+                          ),
+                        ),
+                      );
+                    },
+                    child: ItemTile(
+                      item: eachItem,
+                      icon: Icon(Icons.arrow_forward),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                            builder: (context) => AddToCartPage(
+                          item: eachItem,
+                          addToSavedCallback: () => addToSaved(eachItem),
+                        ),
+                            ),
+                        );
+                      }
                     ),
                   );
                 },
               ),
-
             ),
           ],
         ),
