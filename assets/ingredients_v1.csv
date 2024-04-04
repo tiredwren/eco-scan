@@ -1,23 +1,123 @@
-INGREDIENT ,SUSTAINABILITY RATING ,REASONS,,KEY ,
-Milk,30,,,Dairy products(ruminants):,-70
-Milk powder,30,,,Dairy products(non- ruminants):,-60
-Organic Milk,30,,,Meat products (ruminant animals):,-85
-Organic Milk Powder,30,,,Meat products (non-ruminants):,-65
-Cane Sugar,45,,,Non-organics:,-5
-Organic cane sugar,50,,,Sea-animal products:,-70
-Bonsucro certified cane sugar ,65,,,Human-rights issues:,-10-20
-chocolate Liquor,45,,,Habitat Destruction:,- 20 - 30
-Cocoa butter,45,,,Water use issues (not animal related):,-20 - 30
-Soy lecithin,90,,,Organic:,5+
-Vanilla,63,,,,
-Vanillin,80,,,,
-Almonds,72,,,,
-Macadamia nuts,92,,,,
-Pistachios,93.5,,,,
-Walnuts,93.5,,,,
-Hazelnuts,93,,,,
-Brazil nuts,93,,,,
-Soy,90,,,,
-Cashews,90,,,,
-Tapioca,87,,,,
-Sea salt,95,,,,
+INGREDIENT ;SUSTAINABILITY RATING ;REASONS
+Milk;30;Non-organics, moderate habitat destruction, moderate water use, Dairy products (ruminants)
+Milk powder;30;Non-organics, moderate habitat destruction, moderate water use, Dairy products (ruminants)
+Organic Milk;30;Organic, moderate habitat destruction, moderate water use, Dairy products (ruminants)
+Organic Milk Powder;30;Organic, moderate habitat destruction, moderate water use, Dairy products (ruminants)
+Cane Sugar;45;Non-organics, minimal habitat destruction, moderate water use
+Organic cane sugar;50;Organic, minimal habitat destruction, moderate water use
+Bonsucro certified cane sugar;65;Organic, minimal habitat destruction, moderate water use
+Chocolate Liquor;45;Non-organics, minimal habitat destruction, moderate water use
+Cocoa butter;45;Non-organics, minimal habitat destruction, moderate water use
+Soy lecithin;90;Organic, minimal habitat destruction, low water use, Non-ruminant animal product
+Vanilla;63;Organic, minimal habitat destruction, low water use
+Vanillin;80;Organic, minimal habitat destruction, low water use
+Almonds;72;Organic, minimal habitat destruction, low water use
+Macadamia nuts;92;Organic, minimal habitat destruction, low water use
+Pistachios;93.5;Organic, minimal habitat destruction, low water use
+Walnuts;93.5;Organic, minimal habitat destruction, low water use
+Hazelnuts;93;Organic, minimal habitat destruction, low water use
+Brazil nuts;93;Organic, minimal habitat destruction, low water use
+Soy;90;Organic, minimal habitat destruction, low water use, Non-ruminant animal product
+Cashews;90;Organic, minimal habitat destruction, low water use
+Tapioca;87;Non-organics, minimal habitat destruction, moderate water use
+Sea salt;95;Organic, minimal habitat destruction, low water use
+Quinoa;75;Organic, minimal habitat destruction, low water use
+Lentils;90;Organic, minimal habitat destruction, low water use
+Chickpeas;90;Organic, minimal habitat destruction, low water use
+Black beans;90;Organic, minimal habitat destruction, low water use
+Brown rice;75;Organic, moderate water use
+Millet;75;Organic, moderate water use
+Buckwheat;75;Organic, moderate water use
+Wild rice;80;Organic, moderate water use
+Amaranth;75;Organic, moderate water use
+Chia seeds;80;Organic, minimal habitat destruction, low water use
+Flaxseeds;80;Organic, minimal habitat destruction, low water use
+Hemp seeds;80;Organic, minimal habitat destruction, low water use
+Sunflower seeds;75;Organic, moderate water use
+Pumpkin seeds;75;Organic, moderate water use
+Almonds;15;Moderate habitat destruction, moderate water use
+Walnuts;20;Moderate habitat destruction, moderate water use
+Cashews;15;Moderate habitat destruction, moderate water use
+Pistachios;20;Moderate habitat destruction, moderate water use
+Hazelnuts;20;Moderate habitat destruction, moderate water use
+Pecans;20;Moderate habitat destruction, moderate water use
+Macadamia nuts;25;Organic, moderate habitat destruction, moderate water use
+Brazil nuts;20;Moderate habitat destruction, moderate water use
+Coconut;65;Organic, moderate habitat destruction, moderate water use
+Olive oil;65;Organic, moderate habitat destruction, moderate water use
+Avocado oil;70;Organic, minimal habitat destruction, low water use
+Sesame oil;20;Moderate habitat destruction, moderate water use
+Flaxseed oil;20;Moderate habitat destruction, moderate water use
+Sunflower oil;20;Moderate habitat destruction, moderate water use
+Canola oil;15;Moderate habitat destruction, moderate water use
+Coconut oil;65;Organic, moderate habitat destruction, moderate water use
+Almond oil;15;Moderate habitat destruction, moderate water use
+Walnut oil;20;Moderate habitat destruction, moderate water use
+Pistachio oil;20;Moderate habitat destruction, moderate water use
+Hazelnut oil;20;Moderate habitat destruction, moderate water use
+Hemp oil;25;Organic, moderate habitat destruction, moderate water use
+Rice bran oil;20;Moderate habitat destruction, moderate water use
+Soybeans;15;Moderate habitat destruction, moderate water use
+Tofu;20;Moderate habitat destruction, moderate water use
+Tempeh;20;Moderate habitat destruction, moderate water use
+Edamame;20;Moderate habitat destruction, moderate water use
+Seitan;15;Moderate habitat destruction, moderate water use
+Textured vegetable protein (TVP);15;Moderate habitat destruction, moderate water use
+Nutritional yeast;20;Organic, minimal habitat destruction
+Spirulina;80;Organic, minimal habitat destruction, low water use
+Chlorella;80;Organic, minimal habitat destruction, low water use
+Moringa;75;Organic, minimal habitat destruction, low water use
+Wheatgrass;75;Organic, minimal habitat destruction, low water use
+Barley grass;75;Organic, minimal habitat destruction, low water use
+Alfalfa;75;Organic, minimal habitat destruction, low water use
+Broccoli;80;Organic, minimal habitat destruction
+Spinach;80;Organic, minimal habitat destruction
+Kale;80;Organic, minimal habitat destruction
+Swiss chard;80;Organic, minimal habitat destruction
+Collard greens;80;Organic, minimal habitat destruction
+Arugula;80;Organic, minimal habitat destruction
+Bok choy;80;Organic, minimal habitat destruction
+Watercress;80;Organic, minimal habitat destruction
+Brussels sprouts;80;Organic, minimal habitat destruction
+Cauliflower;80;Organic, minimal habitat destruction
+Cabbage;80;Organic, minimal habitat destruction
+Beets;80;Organic, minimal habitat destruction
+Carrots;80;Organic, minimal habitat destruction
+Sweet potatoes;80;Organic, minimal habitat destruction
+Butternut squash;80;Organic, minimal habitat destruction
+Acorn squash;80;Organic, minimal habitat destruction
+Zucchini;80;Organic, minimal habitat destruction
+Bell peppers;80;Organic, minimal habitat destruction
+Tomatoes;80;Organic, minimal habitat destruction
+Cucumbers;80;Organic, minimal habitat destruction
+Eggplant;80;Organic, minimal habitat destruction
+Green beans;80;Organic, minimal habitat destruction
+Snap peas;80;Organic, minimal habitat destruction
+Radishes;80;Organic, minimal habitat destruction
+Turnips;80;Organic, minimal habitat destruction
+Rutabaga;80;Organic, minimal habitat destruction
+Parsnips;80;Organic, minimal habitat destruction
+Artichokes;80;Organic, minimal habitat destruction
+Asparagus;80;Organic, minimal habitat destruction
+Celery;80;Organic, minimal habitat destruction
+Leeks;80;Organic, minimal habitat destruction
+Fennel;80;Organic, minimal habitat destruction
+Onions;80;Organic, minimal habitat destruction
+Garlic;80;Organic, minimal habitat destruction
+Ginger;80;Organic, minimal habitat destruction
+Turmeric;80;Organic, minimal habitat destruction
+Cinnamon;20;Minimal habitat destruction
+Cardamom;20;Minimal habitat destruction
+Nutmeg;20;Minimal habitat destruction
+Cloves;20;Minimal habitat destruction
+Allspice;20;Minimal habitat destruction
+Black pepper;20;Minimal habitat destruction
+Sea salt;20;Minimal habitat destruction
+Pink Himalayan salt;20;Minimal habitat destruction
+Tamari;20;Minimal habitat destruction
+Miso;20;Minimal habitat destruction
+Maple syrup;20;Minimal habitat destruction
+Agave syrup;20;Minimal habitat destruction
+Molasses;20;Minimal habitat destruction
+Honey;20;Minimal habitat destruction
+Coconut sugar;20;Minimal habitat destruction

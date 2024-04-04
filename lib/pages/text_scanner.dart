@@ -13,15 +13,18 @@ class TextScanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Scan Text',
+      title: 'Scan Ingredients',
       theme: ThemeData(
-        primarySwatch: Colors.brown,
+        colorScheme: ColorScheme.fromSwatch(
+          primaryColorDark: Colors.grey[800],),
+        // Set the primary color to grey[800]
+
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const ScanPage(),
     );
   }
 }
-
 class ScanPage extends StatefulWidget {
   const ScanPage({Key? key});
 
@@ -29,31 +32,23 @@ class ScanPage extends StatefulWidget {
   State<ScanPage> createState() => _ScanPageState();
 }
 
-class _ScanPageState extends State<ScanPage>
-    with WidgetsBindingObserver {
+class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
   bool _isPermissionGranted = false;
-
   late final Future<void> _future;
   CameraController? _cameraController;
-
   final textRecognizer = TextRecognizer();
-
   Map<String, String> sustainabilityRatings = {};
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
-
+    WidgetsBinding.instance!.addObserver(this);
     _future = _requestCameraPermission();
-
   }
-
-
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     _stopCamera();
     textRecognizer.close();
     super.dispose();
@@ -81,7 +76,6 @@ class _ScanPageState extends State<ScanPage>
       return;
     }
 
-    // select the first rear camera
     CameraDescription? camera;
     for (var i = 0; i < cameras.length; i++) {
       final CameraDescription current = cameras[i];
@@ -169,26 +163,30 @@ class _ScanPageState extends State<ScanPage>
             Scaffold(
               backgroundColor: _isPermissionGranted ? Colors.transparent : null,
               body: _isPermissionGranted
-                  ? Column(
-                children: [
-                  Expanded(
-                    child: Container(),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 30.0),
-                    child: Center(
+                  ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
                       child: ElevatedButton(
                         onPressed: _scanImage,
-                        child: const Text('Scan text'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[800],
+                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 50),
+                        ),
+                        child: const Text(
+                          'Scan Ingredients',
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )
                   : Center(
                 child: Container(
-                  padding:
-                  const EdgeInsets.only(left: 24.0, right: 24.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: const Text(
                     'Camera permission denied',
                     textAlign: TextAlign.center,
