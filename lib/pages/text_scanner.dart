@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:csv/csv.dart';
 
 class TextScanner extends StatelessWidget {
   const TextScanner({Key? key});
@@ -17,7 +16,6 @@ class TextScanner extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
           primaryColorDark: Colors.grey[800],),
-        // Set the primary color to grey[800]
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -42,13 +40,13 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     _future = _requestCameraPermission();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _stopCamera();
     textRecognizer.close();
     super.dispose();
