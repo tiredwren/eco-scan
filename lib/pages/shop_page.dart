@@ -1,3 +1,4 @@
+import 'package:barcode_scanner/components/app_colors.dart';
 import 'package:barcode_scanner/components/item_tile.dart';
 import 'package:barcode_scanner/models/shop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,13 +106,13 @@ class _ShopPageState extends State<ShopPage> {
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(25.0),
+        padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
         child: Column(
           children: [
-            const Text(
-              "Welcome to EcoScan",
-              style: TextStyle(fontSize: 20),
-            ),
+            // const Text(
+            //   "Welcome to EcoScan",
+            //   style: TextStyle(fontSize: 20),
+            // ),
             SearchBar(onQueryChanged: onQueryChanged),
             Expanded(
               child: ListView.builder(
@@ -179,19 +180,20 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.only(bottom: 15),
       child:
       TextField(
         onChanged: onQueryChanged,
         decoration: InputDecoration(
           labelText: 'Search',
+          focusColor: AppColors.primary,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(color: Colors.white),
           ),
-          prefixIcon: Icon(Icons.search),
+          prefixIcon: Icon(Icons.search, color: Colors.grey[900],),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: AppColors.tile,
         ),
       ),
 

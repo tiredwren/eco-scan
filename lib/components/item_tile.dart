@@ -1,3 +1,4 @@
+import 'package:barcode_scanner/components/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../models/items.dart';
@@ -22,10 +23,10 @@ class _ItemTileState extends State<ItemTile> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.grey[200]),
+          borderRadius: BorderRadius.circular(5),
+          color: AppColors.tile),
       margin: EdgeInsets.only(bottom: 10),
-      padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: ListTile(
         title: Text(widget.item.name),
         subtitle: Text(widget.item.price),
