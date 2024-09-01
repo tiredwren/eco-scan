@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:barcode_scanner/components/app_colors.dart';
 import 'package:barcode_scanner/pages/sustainability_score_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,16 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
                   if (snapshot.hasData) {
                     _initCameraController(snapshot.data!);
 
-                    return Center(child: CameraPreview(_cameraController!));
+                    return Positioned.fill(
+                      top: 20,
+                      left: 20,
+                      right: 20,
+                      bottom: 65,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0), // rounded corners of camera preview
+                        child: CameraPreview(_cameraController!),
+                      ),
+                    );
                   } else {
                     return const LinearProgressIndicator();
                   }
@@ -161,18 +171,22 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
             Scaffold(
               backgroundColor: _isPermissionGranted ? Colors.transparent : null,
               body: _isPermissionGranted
-                  ? Center(
-                child: Column(
+                  ? SafeArea(
+                child: Center
+                  (child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 40),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: ElevatedButton(
-                        onPressed: _scanImage,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey[800],
-                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 50),
+                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 110),
+                          backgroundColor: AppColors.icon,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
                         ),
+                        onPressed: _scanImage,
                         child: const Text(
                           'Scan Ingredients',
                           style: TextStyle(fontSize: 20),
@@ -181,6 +195,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
                     ),
                   ],
                 ),
+                )
               )
                   : Center(
                 child: Container(

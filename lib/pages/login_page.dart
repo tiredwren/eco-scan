@@ -1,3 +1,4 @@
+import 'package:barcode_scanner/const.dart';
 import 'package:flutter/material.dart';
 import 'package:barcode_scanner/components/my_button.dart';
 import 'package:barcode_scanner/components/my_textfield.dart';
@@ -52,9 +53,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: backgroundColor,
       body: SafeArea(
-        child: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25),
+          child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -194,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-        ),
+        ),)
       ),
     );
   }

@@ -23,54 +23,52 @@ class _RegisterPageState extends State<RegisterPage> {
   // sign user in method
   void signUserUp() async {
     try {
-      // check if entered passwords match
-      if (passwordController.text == confirmPasswordController.text) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Tutorial())
-        );
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: usernameController.text,
-            password: passwordController.text);
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Center(
-                child: Text("Passwords do not match"),
-              ),
-            );
-          },
-        );
+      // Check if entered passwords match
+      if (passwordController.text != confirmPasswordController.text) {
+        _showDialog("Passwords do not match");
+        return;
       }
+
+      // Check if password is at least 6 characters long
+      if (passwordController.text.length < 6) {
+        _showDialog("Make sure your password is at least 6 characters.");
+        return;
+      }
+
+      // Create user with email and password
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+          email: usernameController.text,
+          password: passwordController.text);
+
+      // Navigate to Tutorial page if sign-up is successful
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Tutorial())
+      );
     } on FirebaseAuthException catch (e) {
-      if (e.code == "weak-password") {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Center(
-                child: Text(
-                    "Make sure your password is at least 6 characters."),
-              ),
-            );
-          },
-        );
-      }
-      else {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Center(
-                child: Text(e.code),
-              ),
-            );
-          },
-        );
+      if (e.code == 'weak-password') {
+        _showDialog("Make sure your password is at least 6 characters.");
+      } else if (e.code == 'email-already-in-use') {
+        _showDialog("An account already exists for that email.");
+      } else {
+        _showDialog(e.message ?? "An unknown error occurred.");
       }
     }
+  }
+
+// Helper method to show dialog
+  void _showDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Center(
+            child: Text(message),
+          ),
+        );
+      },
+    );
   }
 
   @override

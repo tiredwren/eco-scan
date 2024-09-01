@@ -49,44 +49,62 @@ class _SavedPageState extends State<SavedPage> {
                       .collection('saved items')
                       .snapshots(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          final itemData = snapshot.data!.docs[index].data() as Map<String, dynamic>;
-                          return GestureDetector(
-                            onTap: () async {
-                              String? url = itemData['url'];
-                              if (url != null && url.isNotEmpty) {
-                                if (await canLaunch(url)) {
-                                await launch(url);
-                              } else {
-                                  print('Could not launch $url');
-                                }
-                              }
-                            },
-                            child: ItemTile(
-                              item: Item(
-                                name: itemData['itemName'] ?? '',
-                                price: itemData['price'] ?? '',
-                                imagePath: itemData['image'] ?? '',
-                                sustainabilityScore: 0,
-                                url: itemData['url'] ?? '',
-                              ),
-                              onPressed: () => removeFromSaved(snapshot.data!.docs[index]),
-                              icon: Icon(Icons.delete),
-                            ),
-                          );
-                        },
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasError) {
                       return Center(
                         child: Text(snapshot.error.toString()),
                       );
+                    } else if (snapshot.hasData) {
+                      if (snapshot.data!.docs.isEmpty) {
+                        return Center(
+                          child: Text(
+                            "Save something from the shop to see it here.",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            final itemData = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                            return GestureDetector(
+                              onTap: () async {
+                                String? url = itemData['url'];
+                                if (url != null && url.isNotEmpty) {
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    print('Could not launch $url');
+                                  }
+                                }
+                              },
+                              child: ItemTile(
+                                item: Item(
+                                  name: itemData['itemName'] ?? '',
+                                  price: itemData['price'] ?? '',
+                                  imagePath: itemData['image'] ?? '',
+                                  sustainabilityScore: 0,
+                                  url: itemData['url'] ?? '',
+                                ),
+                                onPressed: () => removeFromSaved(snapshot.data!.docs[index]),
+                                icon: Icon(Icons.delete),
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    } else {
+                      return const Center(
+                        child: Text(
+                          "No data available",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      );
                     }
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
                   },
                 ),
               ),
